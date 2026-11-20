@@ -1,0 +1,1097 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+							</style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador Bold · Ecosistema completo</title>
+<style>
+:root{
+ --bg:#f3f5fa;--ink:#17223b;--muted:#637087;--line:#dce3ee;
+ --purple:#5735cf;--blue:#edf5ff;--green:#087c50;--red:#bd263d
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Arial,sans-serif}
+h1{font-size:24px;margin:0 0 5px}
+h2{font-size:18px;margin:0 0 12px}
+h3{font-size:14px;margin:16px 0 8px}
+p{margin:8px 0}
+button,input,select{font:inherit}
+button{padding:10px 13px;border:1px solid var(--line);border-radius:8px;
+ background:white;color:var(--ink);cursor:pointer}
+button.primary{background:var(--purple);border-color:var(--purple);color:white}
+button:disabled{opacity:.5;cursor:not-allowed}
+input,select{width:100%;min-width:0;padding:8px;border:1px solid #b5cce5;
+ border-radius:6px;background:var(--blue);color:#164d84}
+input:focus,select:focus,button:focus{outline:2px solid #aa9ce9;outline-offset:2px}
+input.invalid{border:2px solid var(--red);background:#fff0f2}
+input[type=checkbox]{width:auto}
+label{display:block;font-size:12px;color:var(--muted)}
+label input,label select{margin-top:5px}
+header{padding:20px 24px;background:var(--ink);color:white}
+.header-inner{max-width:1600px;margin:auto;display:flex;
+ justify-content:space-between;align-items:center;gap:16px}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.status{display:inline-block;margin-top:8px;padding:4px 9px;border-radius:20px;
+ background:#fff8e7;color:#72500b;font-size:12px}
+.status.ok{background:#eaf8f0;color:#125738}
+main{max-width:1650px;margin:auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(350px,1fr);
+ gap:20px;align-items:start}
+.card{background:white;border:1px solid var(--line);border-radius:12px;
+ padding:18px;margin-bottom:18px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.note{padding:12px 15px;background:#fff8e7;border:1px solid #ecd69b;
+ border-radius:9px;margin-bottom:16px}
+.help{font-size:12px;color:var(--muted)}
+.ticket{margin-top:15px;padding:14px;border:1px solid #d9cdf7;
+ border-radius:9px;background:#f8f5ff}
+.estimate{margin-top:12px;padding:12px;border:1px solid var(--line);
+ border-radius:8px;background:white}
+.estimate strong{display:block;font-size:27px;color:var(--purple)}
+.scroll{overflow:auto;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:12px}
+th,td{padding:8px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{text-align:left;background:#f0f3f9}
+td input{min-width:95px}
+.calc{text-align:right;background:#f8f9fc;white-space:nowrap;
+ font-variant-numeric:tabular-nums}
+tfoot td{background:#f0f3f9;font-weight:bold;white-space:nowrap}
+.brand-table{min-width:1450px}
+.cost-table{min-width:1240px}
+.pos-table{min-width:1200px}
+.concept{min-width:225px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpi{padding:13px;border:1px solid var(--line);border-radius:10px;background:#f8f9fd}
+.kpi small{display:block;margin-bottom:5px;color:var(--muted)}
+.kpi strong{display:block;font-size:23px;overflow-wrap:anywhere}
+.kpi.hero{grid-column:1/-1;background:#f0ebff;border-color:#d9cdf7}
+.kpi.hero strong{font-size:33px}
+.pos{color:var(--green)!important}
+.neg{color:var(--red)!important}
+.message{padding:12px;margin-top:12px;border-radius:8px;background:#f0f3f9}
+.message.good{background:#eaf8f0;color:#125738}
+.message.bad{background:#fff0f2;color:#922135}
+.line{display:flex;justify-content:space-between;gap:14px;
+ padding:9px 0;border-bottom:1px solid #edf0f5}
+.line strong{text-align:right}
+.error{padding:12px;margin-bottom:15px;background:#fff0f2;color:var(--red);
+ border:1px solid var(--red);border-radius:8px}
+canvas{display:block;width:100%;height:auto}
+details summary{font-weight:bold;cursor:pointer}
+fieldset{min-width:0;border:1px solid var(--line);border-radius:8px;margin-top:12px}
+fieldset:disabled{opacity:.55}
+.check{display:flex;align-items:center;gap:8px;color:var(--ink)}
+.check input{margin:0}
+footer{font-size:12px;color:var(--muted);padding:10px 0 20px}
+.print-only{display:none}
+[hidden]{display:none!important}
+@media(max-width:1150px){.layout{grid-template-columns:1fr}}
+@media(max-width:600px){
+ main{padding:14px}header{padding:18px 14px}
+ .header-inner{flex-direction:column;align-items:flex-start}
+ .fields{grid-template-columns:1fr}.kpi strong{font-size:20px}
+}
+@page{size:A4;margin:10mm}
+@media print{
+ body{background:white;font-size:9px}
+ .screen-only{display:none!important}.print-only{display:block}
+ .print-only h1{font-size:21px}
+ .print-only h2{font-size:13px;margin:9px 0 5px}
+ .print-only table{font-size:8px}
+ .print-only td,.print-only th{padding:4px}
+ .print-head{border-bottom:2px solid #5735cf;padding-bottom:8px}
+ .print-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+ .print-box{padding:9px;border:1px solid #dce3ee;border-radius:7px;break-inside:avoid}
+ .print-value{font-size:25px;font-weight:bold}
+ tr{break-inside:avoid}thead{display:table-header-group}
+ .legal{font-size:8px;margin-top:10px}
+ *{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div id="app">
+ <div class="note">
+  Preparando simulador… Si este mensaje no cambia, abre el archivo
+  en un navegador con JavaScript habilitado.
+ </div>
+</div>
+<noscript>
+ <div class="note">Activa JavaScript para utilizar el simulador.</div>
+</noscript>
+
+<script>
+(function(){
+ "use strict";
+
+ const root=document.getElementById("app");
+ if(!root) return;
+
+ function make(tag,parent,cls,text){
+  const element=document.createElement(tag);
+  if(cls) element.className=cls;
+  if(text!==undefined) element.textContent=text;
+  if(parent) parent.appendChild(element);
+  return element;
+ }
+
+ let errorBox,status,pdfButton,printArea,current=null;
+
+ function report(error){
+  const message=error && error.message ? error.message : String(error);
+  current=null;
+  if(errorBox){
+   errorBox.hidden=false;
+   errorBox.textContent="Error de ejecución: "+message;
+  }else make("div",root,"error","Error de ejecución: "+message);
+  if(status){
+   status.textContent="Error: revisa el mensaje de la página";
+   status.className="status";
+  }
+  if(pdfButton) pdfButton.disabled=true;
+  if(printArea) printArea.textContent="Simulación no disponible.";
+  console.error(error);
+ }
+
+ try{initialize();}catch(error){report(error);}
+
+ function initialize(){
+  root.textContent="";
+
+  const BRANDS=["Visa","Mastercard","Amex","Diners","Débito nacional","Otras"];
+  const CONCEPTS=[
+   "Portal transaccional (mensualidad)",
+   "Cuota de manejo de tarjeta",
+   "Pagos ACH / transferencias a otras cuentas",
+   "Pagos a proveedores",
+   "Pago de nómina",
+   "Alquiler de datáfonos",
+   "Cuota de manejo de cuenta",
+   "Instalación, mantenimiento o soporte de datáfono",
+   "Retiros, consultas o extractos",
+   "Otros"
+  ];
+  const POS_CONCEPTS=[
+   "Licencia o suscripción POS",
+   "Módulos adicionales o integraciones",
+   "Soporte o mantenimiento POS"
+  ];
+  const LEGAL="Simulación informativa basada en los datos suministrados por el comercio. "+
+   "No constituye oferta vinculante.";
+  const nf=new Intl.NumberFormat("es-CO",{maximumFractionDigits:0});
+  const df=new Intl.NumberFormat("es-CO",{maximumFractionDigits:2});
+  const pf=new Intl.NumberFormat("es-CO",{
+   minimumFractionDigits:2,maximumFractionDigits:2
+  });
+  const money=n=>(n < -0.005 ? "−" : "")+"$ "+nf.format(Math.abs(n));
+  const pct=n=>pf.format(n)+"%";
+  const numericFields=[];
+  let exampleMode=false;
+  let previousTitle=null;
+
+  function numeric(parent,label,initial="",max=1e12,config=false){
+   const input=make("input",parent);
+   input.type="text";input.inputMode="decimal";input.value=initial;
+   input.placeholder="0";input.setAttribute("aria-label",label);
+   numericFields.push({input,label,max,config});
+   return input;
+  }
+  function num(input){
+   const raw=input.value.trim();
+   return raw==="" ? 0 : Number(raw.replace(",","."));
+  }
+  function label(parent,title){return make("label",parent,"",title);}
+  function button(parent,title,primary=false){
+   const b=make("button",parent,primary ? "primary" : "",title);
+   b.type="button";return b;
+  }
+  function card(parent,title){
+   const section=make("section",parent,"card");
+   make("h2",section,"",title);return section;
+  }
+  function table(parent,headers,cls=""){
+   const wrap=make("div",parent,"scroll");
+   const t=make("table",wrap,cls);
+   const row=make("tr",make("thead",t));
+   headers.forEach(h=>make("th",row,"",h));
+   return {table:t,body:make("tbody",t),foot:make("tfoot",t)};
+  }
+  function cell(row){return make("td",row,"calc","$ 0");}
+  function cash(element,value,signed=false){
+   element.textContent=money(value);
+   element.classList.remove("pos","neg");
+   if(signed && value>0.005) element.classList.add("pos");
+   if(signed && value < -0.005) element.classList.add("neg");
+  }
+  function blank(element){
+   element.textContent="—";element.classList.remove("pos","neg");
+  }
+  function guarded(fn){
+   return function(){
+    try{fn();}catch(error){invalidate("Ocurrió un error de ejecución.");report(error);}
+   };
+  }
+
+  const screen=make("div",root,"screen-only");
+  const header=make("header",screen);
+  const head=make("div",header,"header-inner");
+  const heading=make("div",head);
+  make("h1",heading,"","Simulador de ahorro Bold");
+  make("div",heading,"","V5 · Pagos + servicios + POS · COP");
+  status=make("span",heading,"status","Iniciando…");
+  const actions=make("div",head,"actions");
+  const exampleButton=button(actions,"Cargar ejemplo");
+  const clearButton=button(actions,"Limpiar datos");
+  const testButton=button(actions,"Verificar cálculos");
+  pdfButton=button(actions,"Exportar PDF",true);
+  pdfButton.disabled=true;
+
+  const main=make("main",screen);
+  make("div",main,"note",
+   "Completa los campos azules: el cálculo es inmediato. Sin impuestos ni retenciones. "+
+   "Los ejemplos son ficticios y los valores Bold en cero no representan gratuidades oficiales. "+
+   "Cargar ejemplo y limpiar datos reemplazan las entradas actuales.");
+  errorBox=make("div",main,"error");
+  errorBox.hidden=true;errorBox.setAttribute("role","alert");
+  const layout=make("div",main,"layout");
+  const left=make("div",layout);
+  const right=make("aside",layout);
+
+  // Módulo 1.
+  const commerce=card(left,"1. Datos del comercio");
+  const fields=make("div",commerce,"fields");
+  const merchant=make("input",label(fields,"Nombre del comercio"));
+  const executive=make("input",label(fields,"Nombre del ejecutivo"));
+  const bank=make("input",label(fields,"Banco / adquirente actual"));
+  [merchant,executive,bank].forEach(input=>input.maxLength=100);
+  const date=make("input",label(fields,"Fecha"));
+  date.type="date";
+  const horizon=make("select",label(fields,"Horizonte de proyección"));
+  [12,24,36].forEach(n=>{
+   const option=make("option",horizon,"",n+" meses");option.value=String(n);
+  });
+  const growth=numeric(label(fields,"Crecimiento mensual esperado (%)"),"Crecimiento","0",100);
+  const ticketPanel=make("div",commerce,"ticket");
+  const ticketFields=make("div",ticketPanel,"fields");
+  const declared=numeric(
+   label(ticketFields,"Total mensual procesado con tarjetas"),"Total procesado");
+  const ticket=numeric(
+   label(ticketFields,"Ticket promedio de pagos con tarjeta"),"Ticket promedio");
+  const estimateBox=make("div",ticketPanel,"estimate");
+  make("div",estimateBox,"","Pagos estimados según el total declarado");
+  const estimate=make("strong",estimateBox,"","0");
+  make("span",estimateBox,"help","Total procesado ÷ ticket promedio");
+  const allocation=make("p",ticketPanel,"help");
+  make("p",commerce,"help",
+   "Dinero sin separadores de miles: 1000000. Decimales con coma o punto: 2,29 o 2.29. "+
+   "Usa el ticket promedio exclusivo de ventas con tarjeta.");
+
+  // Módulo 2.
+  const commissionSection=card(left,"2. Comisiones por franquicia");
+  make("p",commissionSection,"help",
+   "Distribuye el volumen entre las franquicias. Pagos = volumen ÷ ticket. "+
+   "Costo = volumen × tarifa / 100 + pagos × fijo. Escribe 2,29 para 2,29%.");
+  const brandTable=table(commissionSection,[
+   "Franquicia","Volumen mensual","Pagos estimados","Actual %","Fijo actual / pago",
+   "Bold %","Fijo Bold / pago","Costo actual","Costo Bold","Actual − Bold","Costo Bold por ticket"
+  ],"brand-table");
+  const brandUI=BRANDS.map(name=>{
+   const row=make("tr",brandTable.body);
+   make("td",row,"",name);
+   const volume=numeric(make("td",row),name+": volumen");
+   const payments=cell(row);
+   const rateA=numeric(make("td",row),name+": tarifa actual","",10);
+   const fixedA=numeric(make("td",row),name+": fijo actual");
+   const rateB=numeric(make("td",row),name+": tarifa Bold","",10);
+   const fixedB=numeric(make("td",row),name+": fijo Bold");
+   return {
+    name,volume,payments,rateA,fixedA,rateB,fixedB,
+    costA:cell(row),costB:cell(row),diff:cell(row),perTicket:cell(row)
+   };
+  });
+  const bf=make("tr",brandTable.foot);
+  make("td",bf,"","Total / efectiva");
+  const sumVolume=cell(bf),sumPayments=cell(bf),effectiveA=cell(bf);
+  make("td",bf);
+  const effectiveB=cell(bf);
+  make("td",bf);
+  const sumCommissionA=cell(bf),sumCommissionB=cell(bf);
+  const sumCommissionDiff=cell(bf),averagePayment=cell(bf);
+  make("p",commissionSection,"help",
+   "Desplaza la tabla horizontalmente. La tarifa efectiva incluye cargos fijos. "+
+   "Costo por ticket = comisión sobre una compra del ticket promedio. "+
+   "Los pagos fraccionarios se conservan como estimación, sin redondeo intermedio.");
+
+  // Módulo 3.
+  const costSection=card(left,"3. Costos asociados · 10 filas");
+  make("p",costSection,"help",
+   "Frecuencia 1 para mensualidades; número de equipos para datáfonos. "+
+   "No repitas aquí los conceptos de software POS del módulo 4.");
+  const datalist=make("datalist",costSection);
+  datalist.id="bold-concepts";
+  CONCEPTS.forEach(name=>{const op=make("option",datalist);op.value=name;});
+  const costTable=table(costSection,[
+   "Concepto","Frecuencia / mes","Unitario actual","Unitario Bold",
+   "Mensual actual","Mensual Bold","Ahorro mensual","Ahorro anual"
+  ],"cost-table");
+  const costUI=CONCEPTS.map((name,i)=>{
+   const row=make("tr",costTable.body);
+   const concept=make("input",make("td",row),"concept");
+   concept.value=name;concept.maxLength=100;
+   concept.setAttribute("list",datalist.id);
+   concept.setAttribute("aria-label","Concepto "+(i+1));
+   return {
+    concept,
+    frequency:numeric(make("td",row),"Costo "+(i+1)+": frecuencia","",1e9),
+    unitA:numeric(make("td",row),"Costo "+(i+1)+": actual"),
+    unitB:numeric(make("td",row),"Costo "+(i+1)+": Bold","0"),
+    costA:cell(row),costB:cell(row),diff:cell(row),annual:cell(row)
+   };
+  });
+  const cf=make("tr",costTable.foot);
+  make("td",cf,"","Total servicios").colSpan=4;
+  const sumServiceA=cell(cf),sumServiceB=cell(cf);
+  const sumServiceDiff=cell(cf),sumServiceAnnual=cell(cf);
+
+  // Módulo 4.
+  const posSection=card(left,"4. POS / software de punto de venta");
+  make("p",posSection,"help",
+   "Costos recurrentes mensuales del software POS. Cantidades independientes para cada proveedor. "+
+   "Usa cantidad 1 para una mensualidad general. No incluye datáfonos, compra de equipos, "+
+   "implementación ni pagos únicos. Evita duplicar conceptos del módulo 3.");
+  const posTable=table(posSection,[
+   "Concepto","Cantidad actual","Unitario mensual actual","Cantidad Bold",
+   "Unitario mensual Bold","Mensual actual","Mensual Bold","Ahorro mensual"
+  ],"pos-table");
+  const posUI=POS_CONCEPTS.map((name,i)=>{
+   const row=make("tr",posTable.body);
+   const concept=make("input",make("td",row),"concept");
+   concept.value=name;concept.maxLength=100;
+   concept.setAttribute("aria-label","Concepto POS "+(i+1));
+   return {
+    concept,
+    quantityA:numeric(make("td",row),"POS "+(i+1)+": cantidad actual","0",1e9),
+    unitA:numeric(make("td",row),"POS "+(i+1)+": precio actual","0"),
+    quantityB:numeric(make("td",row),"POS "+(i+1)+": cantidad Bold","0",1e9),
+    unitB:numeric(make("td",row),"POS "+(i+1)+": precio Bold","0"),
+    costA:cell(row),costB:cell(row),diff:cell(row)
+   };
+  });
+  const pfrow=make("tr",posTable.foot);
+  make("td",pfrow,"","Total POS mensual").colSpan=5;
+  const sumPosA=cell(pfrow),sumPosB=cell(pfrow),sumPosDiff=cell(pfrow);
+
+  // Configuración.
+  const configCard=make("section",left,"card");
+  const details=make("details",configCard);
+  make("summary",details,"","Configuración de Producto");
+  make("p",details,"help",
+   "Predeterminados separados de las fórmulas. Bloqueo contra cambios accidentales, "+
+   "no autenticación. Vacíos equivalen a cero y se aplican por posición de fila.");
+  const unlockLabel=make("label",details,"check");
+  const unlock=make("input",unlockLabel);unlock.type="checkbox";
+  make("span",unlockLabel,"","Habilitar edición");
+  const configFields=make("fieldset",details);configFields.disabled=true;
+  make("h3",configFields,"","Tarifas Bold predeterminadas");
+  const cfgB=table(configFields,["Franquicia","Tarifa %","Fijo por pago"]);
+  const configBrandUI=BRANDS.map(name=>{
+   const row=make("tr",cfgB.body);make("td",row,"",name);
+   return {
+    rate:numeric(make("td",row),name+": predeterminado %","",10,true),
+    fixed:numeric(make("td",row),name+": predeterminado fijo","",1e12,true)
+   };
+  });
+  function configCosts(title,names){
+   make("h3",configFields,"",title);
+   const t=table(configFields,["Concepto de referencia","Unitario Bold"]);
+   return names.map((name,i)=>{
+    const row=make("tr",t.body);make("td",row,"",name);
+    return numeric(make("td",row),title+" "+(i+1),"0",1e12,true);
+   });
+  }
+  const configCostUI=configCosts("Servicios",CONCEPTS);
+  const configPosUI=configCosts("POS mensual",POS_CONCEPTS);
+  const applyButton=button(configFields,"Aplicar predeterminados Bold");
+  const configStatus=make("p",configFields,"help");
+  configStatus.setAttribute("role","status");
+
+  // Resultados.
+  const results=card(right,"Resultados del ecosistema");
+  const basis=make("p",results,"help");
+  const kpis=make("div",results,"kpis");
+  function kpi(title,hero=false){
+   const box=make("div",kpis,hero ? "kpi hero" : "kpi");
+   return {box,caption:make("small",box,"",title),amount:make("strong",box,"","$ 0")};
+  }
+  const totalAUI=kpi("Ecosistema actual · mensual");
+  const totalBUI=kpi("Ecosistema Bold · mensual");
+  const savingUI=kpi("Ahorro neto mensual · negativo = mayor costo",true);
+  const savingPercent=make("span",savingUI.box,"","—");
+  const annualUI=kpi("Ahorro primeros 12 meses");
+  const accumulatedUI=kpi("Ahorro acumulado");
+  const commercial=make("div",results,"message");
+  commercial.setAttribute("role","status");commercial.setAttribute("aria-live","polite");
+  const warningsUI=make("p",results,"help");
+
+  make("h3",results,"","Costo mensual por componente");
+  const breakdown=table(results,["Componente","Actual","Bold"]);
+  function breakdownRow(title){
+   const row=make("tr",breakdown.body);make("td",row,"",title);
+   return {a:cell(row),b:cell(row)};
+  }
+  const commissionBreak=breakdownRow("Comisiones de pagos");
+  const serviceBreak=breakdownRow("Costos asociados");
+  const posBreak=breakdownRow("Software POS");
+  make("p",results,"help","Estos componentes ya están incluidos en los totales superiores.");
+
+  make("h3",results,"","Desglose del ahorro");
+  function resultLine(title){
+   const row=make("div",results,"line");
+   return {caption:make("span",row,"",title),amount:make("strong",row,"","$ 0")};
+  }
+  const associatedUI=resultLine("Ahorro en costos asociados");
+  const posSavingUI=resultLine("Ahorro en POS");
+  const commissionUI=resultLine("Impacto en comisiones");
+  const netUI=resultLine("Ahorro neto mensual");
+  make("h3",results,"","Punto de equilibrio");
+  const equilibriumUI=make("div",results,"message");
+  make("p",results,"help",
+   "Mantiene ticket, mezcla, tarifas y cantidades POS. Ventas y pagos crecen; "+
+   "servicios y POS permanecen constantes.");
+  const exportHelp=make("p",results,"help");
+  exportHelp.setAttribute("role","status");
+  const testStatus=make("p",results,"help");
+
+  function chart(title){
+   const c=make("canvas",card(right,title));
+   c.width=600;c.height=220;c.setAttribute("role","img");c.setAttribute("aria-label",title);
+   return c;
+  }
+  const barCanvas=chart("Costo mensual comparado");
+  const lineCanvas=chart("Ahorro acumulado");
+  const conceptCanvas=chart("Aporte al ahorro por concepto");
+  make("p",conceptCanvas.parentElement,"help","Verde: aporta ahorro. Rojo: aumenta el costo.");
+
+  const footer=make("footer",main);
+  make("strong",footer,"",LEGAL);
+  make("p",footer,"",
+   "Sin impuestos ni retenciones. Pagos estimados con ticket común por franquicia. "+
+   "POS solo recurrente mensual. Datos en memoria: se pierden al recargar o cerrar. "+
+   "Esta herramienta no transmite datos a servidores.");
+  printArea=make("section",root,"print-only");
+  printArea.textContent="Completa una simulación válida antes de imprimir.";
+
+  function validate(config){
+   const errors=[];
+   numericFields.filter(item=>item.config===config).forEach(item=>{
+    const raw=item.input.value.trim(),n=num(item.input);
+    const valid=(raw==="" || /^\d+(?:[.,]\d*)?$/.test(raw)) &&
+     Number.isFinite(n) && n>=0 && n<=item.max;
+    item.input.classList.toggle("invalid",!valid);
+    item.input.setAttribute("aria-invalid",String(!valid));
+    if(!valid) errors.push(item.label+": usa un número entre 0 y "+
+     nf.format(item.max)+", sin separadores de miles.");
+   });
+   return errors;
+  }
+
+  function read(){
+   return {
+    merchant:merchant.value.trim() || "Comercio sin nombre",
+    executive:executive.value.trim() || "Sin especificar",
+    bank:bank.value.trim() || "Adquirente actual",date:date.value,
+    declared:num(declared),ticket:num(ticket),growth:num(growth)/100,
+    horizon:Number(horizon.value),
+    brands:brandUI.map(row=>({
+     name:row.name,volume:num(row.volume),
+     rateA:num(row.rateA)/100,rateB:num(row.rateB)/100,
+     fixedA:num(row.fixedA),fixedB:num(row.fixedB)
+    })),
+    costs:costUI.map((row,i)=>({
+     name:row.concept.value.trim() || "Concepto "+(i+1),
+     frequency:num(row.frequency),unitA:num(row.unitA),unitB:num(row.unitB)
+    })),
+    pos:posUI.map((row,i)=>({
+     name:row.concept.value.trim() || "POS "+(i+1),
+     quantityA:num(row.quantityA),unitA:num(row.unitA),
+     quantityB:num(row.quantityB),unitB:num(row.unitB)
+    }))
+   };
+  }
+
+  // Motor independiente del HTML. Sin redondeos intermedios.
+  function calculate(data){
+   const brands=data.brands.map(b=>{
+    const payments=data.ticket>0 ? b.volume/data.ticket : 0;
+    const costA=b.volume*b.rateA+payments*b.fixedA;
+    const costB=b.volume*b.rateB+payments*b.fixedB;
+    return {...b,payments,costA,costB,diff:costA-costB,
+     perTicket:data.ticket*b.rateB+b.fixedB};
+   });
+   const costs=data.costs.map(c=>({...c,
+    costA:c.frequency*c.unitA,costB:c.frequency*c.unitB,
+    diff:c.frequency*(c.unitA-c.unitB)
+   }));
+   const pos=(data.pos || []).map(p=>{
+    const costA=p.quantityA*p.unitA,costB=p.quantityB*p.unitB;
+    return {...p,costA,costB,diff:costA-costB};
+   });
+   const sum=(items,key)=>items.reduce((total,item)=>total+item[key],0);
+   const volume=sum(brands,"volume"),payments=sum(brands,"payments");
+   const commissionA=sum(brands,"costA"),commissionB=sum(brands,"costB");
+   const serviceA=sum(costs,"costA"),serviceB=sum(costs,"costB");
+   const posA=sum(pos,"costA"),posB=sum(pos,"costB");
+   const serviceSaving=serviceA-serviceB,posSaving=posA-posB;
+   const fixedSaving=serviceSaving+posSaving;
+   const totalA=commissionA+serviceA+posA,totalB=commissionB+serviceB+posB;
+   let accumulated=0;
+   const months=[];
+   for(let n=1;n<=data.horizon;n++){
+    const saving=(commissionA-commissionB)*Math.pow(1+data.growth,n-1)+fixedSaving;
+    accumulated+=saving;months.push({n,saving,accumulated});
+   }
+   return {
+    brands,costs,pos,volume,payments,commissionA,commissionB,serviceA,serviceB,
+    posA,posB,serviceSaving,posSaving,fixedSaving,totalA,totalB,
+    saving:totalA-totalB,percent:totalA>0 ? (totalA-totalB)/totalA*100 : null,
+    annual:months[11].accumulated,accumulated,months,
+    differenceRate:volume>0 ? (commissionB-commissionA)/volume : null,
+    missingTicket:data.ticket<=0 && data.brands.some(b=>
+     b.volume>0 && (b.fixedA>0 || b.fixedB>0))
+   };
+  }
+
+  function equilibrium(r){
+   if(r.missingTicket) return "Falta ticket promedio para incluir cargos fijos.";
+   const d=r.differenceRate,f=r.fixedSaving;
+   if(d===null) return "Ingresa ventas por franquicia para calcularlo.";
+   if(Math.abs(d)<1e-12){
+    if(f>0.005) return "Sin cruce: Bold ahorra para cualquier volumen con estos supuestos.";
+    if(f < -0.005) return "Sin cruce: Bold cuesta más para cualquier volumen con estos supuestos.";
+    return "Las alternativas cuestan lo mismo para cualquier volumen.";
+   }
+   if(d>0){
+    if(f>0.005) return "Equilibrio en "+money(f/d)+
+     " mensuales. Bold ahorra por debajo y cuesta más por encima: máximo de conveniencia.";
+    if(Math.abs(f)<=0.005) return "Equilibrio en ventas cero. Con ventas positivas, Bold cuesta más.";
+    return "Sin equilibrio positivo: Bold cuesta más en costos recurrentes y comisión.";
+   }
+   if(f < -0.005) return "Equilibrio en "+money(f/d)+
+    " mensuales. Bold ahorra por encima: mínimo de conveniencia.";
+   if(Math.abs(f)<=0.005) return "Equilibrio en ventas cero. Con ventas positivas, Bold ahorra.";
+   return "Sin cruce positivo: Bold ahorra en costos recurrentes y comisión.";
+  }
+
+  function commercialMessage(r){
+   if(r.totalA===0 && r.totalB===0)
+    return "Completa los datos o carga el ejemplo. Aún no hay costos calculados.";
+   if(r.saving>0.005){
+    const loss=r.months.find(m=>m.saving < -0.005);
+    return "Ahorro del primer mes: "+money(r.saving)+"."+
+     (loss ? " Con este crecimiento, el ahorro mensual pasa a ser negativo en el mes "+loss.n+"." : "");
+   }
+   if(r.saving < -0.005)
+    return "Bold cuesta "+money(-r.saving)+" más al mes. Para igualar costos se requieren "+
+     money(-r.saving)+" adicionales de ahorro mensual verificable en servicios o POS, "+
+     "o revisar las tarifas. "+equilibrium(r);
+   return "Las alternativas tienen el mismo costo mensual.";
+  }
+
+  function warnings(data,r){
+   const list=[],mismatch=Math.abs(data.declared-r.volume)>0.01;
+   const missingRates=data.brands.some((b,i)=>b.volume>0 &&
+    (brandUI[i].rateA.value.trim()==="" || brandUI[i].rateB.value.trim()===""));
+   if(mismatch) list.push("PROVISIONAL: total declarado distinto a las franquicias. "+
+    "Los costos usan los volúmenes del módulo 2.");
+   if(data.ticket<=0 && (data.declared>0 || r.volume>0))
+    list.push("Ingresa ticket promedio para estimar pagos.");
+   if(missingRates) list.push("Hay tarifas vacías con ventas: se calculan como 0%. "+
+    "Complétalas o escribe 0 explícitamente.");
+   if(data.costs.some(c=>c.frequency===0 && (c.unitA>0 || c.unitB>0)))
+    list.push("Hay costos unitarios sin frecuencia: esas filas no suman.");
+   if(data.pos.some(p=>(p.unitA>0 && p.quantityA===0) || (p.unitB>0 && p.quantityB===0)))
+    list.push("Hay precios POS sin cantidad: esos conceptos no suman. "+
+     "Usa cantidad 1 para una mensualidad.");
+   if(exampleMode) list.push("Ejemplo ficticio: no son tarifas oficiales.");
+   return {text:list.join(" "),mismatch,missingRates};
+  }
+
+  // Gráficos nativos.
+  function context(canvas,height){
+   canvas.height=height;
+   const ctx=canvas.getContext("2d");
+   if(!ctx) return null;
+   ctx.clearRect(0,0,600,height);ctx.font="13px Arial";ctx.fillStyle="#637087";
+   return ctx;
+  }
+  function compact(n){
+   const a=Math.abs(n),s=n<0 ? "−" : "";
+   if(a>=1e9) return s+"$"+df.format(a/1e9)+" mil M";
+   if(a>=1e6) return s+"$"+df.format(a/1e6)+" M";
+   if(a>=1000) return s+"$"+df.format(a/1000)+" mil";
+   return s+"$"+nf.format(a);
+  }
+  function pendingCharts(message){
+   [barCanvas,lineCanvas,conceptCanvas].forEach(canvas=>{
+    const ctx=context(canvas,90);if(ctx) ctx.fillText(message,12,42);
+    canvas.setAttribute("aria-label",message);
+   });
+  }
+  function drawCharts(data,r){
+   let ctx=context(barCanvas,160);
+   if(ctx){
+    const max=Math.max(r.totalA,r.totalB,1);
+    [
+     {name:"Actual",amount:r.totalA,color:"#8995b3",y:28},
+     {name:"Bold",amount:r.totalB,color:"#5735cf",y:90}
+    ].forEach(item=>{
+     const width=270*item.amount/max;
+     ctx.fillStyle="#637087";ctx.fillText(item.name,8,item.y+21);
+     ctx.fillStyle=item.color;ctx.fillRect(78,item.y,width,32);
+     ctx.fillStyle="#17223b";ctx.fillText(money(item.amount),88+width,item.y+21);
+    });
+   }
+   barCanvas.setAttribute("aria-label","Actual "+money(r.totalA)+". Bold "+money(r.totalB));
+   ctx=context(lineCanvas,250);
+   if(ctx){
+    const values=[0,...r.months.map(m=>m.accumulated)];
+    let min=Math.min(...values),max=Math.max(...values);
+    if(max-min<1){min-=1;max+=1;}
+    const pad=(max-min)*0.08;min-=pad;max+=pad;
+    const x=n=>105+n/data.horizon*460;
+    const y=n=>20+(max-n)/(max-min)*180;
+    for(let i=0;i<=4;i++){
+     const value=min+(max-min)*i/4,yy=y(value);
+     ctx.strokeStyle="#e1e6ef";ctx.beginPath();
+     ctx.moveTo(105,yy);ctx.lineTo(565,yy);ctx.stroke();
+     ctx.textAlign="right";ctx.fillStyle="#637087";
+     ctx.fillText(compact(value),96,yy+4);
+    }
+    ctx.strokeStyle="#a2acc0";ctx.beginPath();
+    ctx.moveTo(105,y(0));ctx.lineTo(565,y(0));ctx.stroke();
+    ctx.strokeStyle="#5735cf";ctx.lineWidth=3;ctx.beginPath();
+    values.forEach((value,i)=>{
+     if(i===0) ctx.moveTo(x(i),y(value));else ctx.lineTo(x(i),y(value));
+    });
+    ctx.stroke();ctx.lineWidth=1;ctx.textAlign="center";
+    [0,data.horizon/2,data.horizon].forEach(n=>ctx.fillText("Mes "+n,x(n),230));
+   }
+   lineCanvas.setAttribute("aria-label","Ahorro acumulado: "+money(r.accumulated));
+   const items=[
+    {name:"Comisiones",amount:r.commissionA-r.commissionB},
+    ...r.costs.map(c=>({name:c.name,amount:c.diff})),
+    ...r.pos.map(p=>({name:"POS: "+p.name,amount:p.diff}))
+   ].filter(item=>Math.abs(item.amount)>0.005);
+   ctx=context(conceptCanvas,Math.max(90,items.length*36+20));
+   if(ctx){
+    if(!items.length) ctx.fillText("No hay diferencias para mostrar.",12,42);
+    else{
+     const max=Math.max(...items.map(item=>Math.abs(item.amount)),1);
+     ctx.strokeStyle="#a2acc0";ctx.beginPath();
+     ctx.moveTo(365,5);ctx.lineTo(365,items.length*36+10);ctx.stroke();
+     items.forEach((item,i)=>{
+      const yy=i*36+12,width=Math.abs(item.amount)/max*190;
+      const xx=item.amount>=0 ? 365 : 365-width;
+      const title=item.name.length>24 ? item.name.slice(0,23)+"…" : item.name;
+      ctx.fillStyle="#637087";ctx.fillText(title,5,yy+15);
+      ctx.fillStyle=item.amount>=0 ? "#087c50" : "#bd263d";
+      ctx.fillRect(xx,yy,width,22);
+     });
+    }
+   }
+   conceptCanvas.setAttribute("aria-label",
+    items.map(item=>item.name+": "+money(item.amount)).join(". ") || "Sin diferencias");
+  }
+
+  const totalOutputs=[
+   totalAUI.amount,totalBUI.amount,savingUI.amount,annualUI.amount,
+   accumulatedUI.amount,savingPercent,commissionUI.amount,netUI.amount
+  ];
+  function invalidate(message){
+   current=null;
+   brandUI.forEach(row=>[row.payments,row.costA,row.costB,row.diff,row.perTicket].forEach(blank));
+   costUI.forEach(row=>[row.costA,row.costB,row.diff,row.annual].forEach(blank));
+   posUI.forEach(row=>[row.costA,row.costB,row.diff].forEach(blank));
+   [
+    sumVolume,sumPayments,effectiveA,effectiveB,sumCommissionA,sumCommissionB,
+    sumCommissionDiff,averagePayment,sumServiceA,sumServiceB,sumServiceDiff,
+    sumServiceAnnual,sumPosA,sumPosB,sumPosDiff,associatedUI.amount,posSavingUI.amount,
+    commissionBreak.a,commissionBreak.b,serviceBreak.a,serviceBreak.b,posBreak.a,posBreak.b,
+    ...totalOutputs
+   ].forEach(blank);
+   commercial.textContent=message;commercial.className="message bad";
+   warningsUI.textContent="";equilibriumUI.textContent="Completa o corrige los datos.";
+   exportHelp.textContent="PDF no disponible: corrige los datos indicados.";
+   pendingCharts("Cálculo pendiente.");pdfButton.disabled=true;
+   printArea.textContent="Simulación no disponible: "+message;
+  }
+
+  function render(data,r,w){
+   r.brands.forEach((b,i)=>{
+    const row=brandUI[i];
+    row.payments.textContent=data.ticket>0 ? df.format(b.payments) : "—";
+    if(data.ticket<=0 && b.volume>0 && (b.fixedA>0 || b.fixedB>0)){
+     [row.costA,row.costB,row.diff].forEach(element=>{
+      element.textContent="Falta ticket";element.classList.remove("pos","neg");
+     });
+    }else{
+     cash(row.costA,b.costA);cash(row.costB,b.costB);cash(row.diff,b.diff,true);
+    }
+    row.perTicket.textContent=data.ticket>0 ? money(b.perTicket) : "—";
+   });
+   r.costs.forEach((c,i)=>{
+    cash(costUI[i].costA,c.costA);cash(costUI[i].costB,c.costB);
+    cash(costUI[i].diff,c.diff,true);cash(costUI[i].annual,c.diff*12,true);
+   });
+   r.pos.forEach((p,i)=>{
+    cash(posUI[i].costA,p.costA);cash(posUI[i].costB,p.costB);
+    cash(posUI[i].diff,p.diff,true);
+   });
+   cash(sumVolume,r.volume);
+   sumPayments.textContent=data.ticket>0 ? df.format(r.payments) : "—";
+   cash(sumServiceA,r.serviceA);cash(sumServiceB,r.serviceB);
+   cash(sumServiceDiff,r.serviceSaving,true);
+   cash(sumServiceAnnual,r.serviceSaving*12,true);
+   cash(sumPosA,r.posA);cash(sumPosB,r.posB);cash(sumPosDiff,r.posSaving,true);
+   cash(associatedUI.amount,r.serviceSaving,true);cash(posSavingUI.amount,r.posSaving,true);
+   cash(serviceBreak.a,r.serviceA);cash(serviceBreak.b,r.serviceB);
+   cash(posBreak.a,r.posA);cash(posBreak.b,r.posB);
+   warningsUI.textContent=w.text;
+   accumulatedUI.caption.textContent="Ahorro acumulado · "+data.horizon+" meses";
+   basis.textContent=w.mismatch
+    ? "PROVISIONAL · Ventas del módulo 2 + servicios + POS · Sin impuestos."
+    : "Pagos sobre "+money(r.volume)+" al mes + servicios + POS · Sin impuestos.";
+
+   if(r.missingTicket){
+    [
+     effectiveA,effectiveB,sumCommissionA,sumCommissionB,sumCommissionDiff,
+     averagePayment,commissionBreak.a,commissionBreak.b,...totalOutputs
+    ].forEach(blank);
+    commercial.textContent="Servicios y POS calculados. Ingresa ticket mayor que cero "+
+     "para incluir los cargos fijos y obtener el costo integral.";
+    commercial.className="message bad";equilibriumUI.textContent=equilibrium(r);
+    pendingCharts("Falta ticket promedio.");pdfButton.disabled=true;
+    exportHelp.textContent="PDF no disponible: falta ticket promedio.";
+    printArea.textContent="Falta ticket promedio.";return;
+   }
+   effectiveA.textContent=r.volume>0 ? pct(r.commissionA/r.volume*100) : "—";
+   effectiveB.textContent=r.volume>0 ? pct(r.commissionB/r.volume*100) : "—";
+   cash(sumCommissionA,r.commissionA);cash(sumCommissionB,r.commissionB);
+   cash(sumCommissionDiff,r.commissionA-r.commissionB,true);
+   averagePayment.textContent=r.payments>0 ? money(r.commissionB/r.payments) : "—";
+   cash(commissionBreak.a,r.commissionA);cash(commissionBreak.b,r.commissionB);
+   cash(totalAUI.amount,r.totalA);cash(totalBUI.amount,r.totalB);
+   cash(savingUI.amount,r.saving,true);cash(annualUI.amount,r.annual,true);
+   cash(accumulatedUI.amount,r.accumulated,true);
+   savingPercent.textContent=r.percent===null
+    ? "Porcentaje no calculable: costo actual cero." : pct(r.percent)+" frente al costo actual";
+   cash(commissionUI.amount,r.commissionA-r.commissionB,true);cash(netUI.amount,r.saving,true);
+   commissionUI.caption.textContent=r.commissionB>r.commissionA
+    ? "Sobrecosto en comisión (se resta)" : "Ahorro en comisión (se suma)";
+   commercial.textContent=commercialMessage(r);
+   commercial.className="message "+(r.saving>0.005 ? "good" : r.saving < -0.005 ? "bad" : "");
+   equilibriumUI.textContent=equilibrium(r);drawCharts(data,r);
+
+   const reasons=[];
+   if(w.mismatch) reasons.push("conciliar el total declarado y las franquicias");
+   if(data.ticket<=0 && (data.declared>0 || r.volume>0))
+    reasons.push("ingresar ticket mayor que cero");
+   if(w.missingRates) reasons.push("completar tarifas de las franquicias con ventas");
+   if(r.totalA===0 && r.totalB===0) reasons.push("ingresar costos para comparar");
+   pdfButton.disabled=reasons.length>0;
+   if(!reasons.length){
+    renderPrint(data,r,w.text);
+    exportHelp.textContent="PDF disponible: pulsa Exportar PDF y selecciona "+
+     "Guardar como PDF. Recomendado: A4, sin encabezados ni pies del navegador.";
+   }else{
+    exportHelp.textContent="Para habilitar el PDF: "+reasons.join("; ")+".";
+    printArea.textContent=exportHelp.textContent;
+   }
+   pdfButton.title=exportHelp.textContent;
+  }
+
+  function printTable(parent,headers,rows){
+   const t=make("table",parent),tr=make("tr",make("thead",t));
+   headers.forEach(title=>make("th",tr,"",title));
+   const body=make("tbody",t);
+   rows.forEach(values=>{
+    const row=make("tr",body);
+    values.forEach((value,i)=>make("td",row,i>0 ? "calc" : "",value));
+   });
+  }
+  function renderPrint(data,r,warning){
+   printArea.textContent="";
+   const head=make("div",printArea,"print-head");
+   make("h1",head,"","Simulación del ecosistema Bold");
+   make("p",head,"",data.merchant+" · "+
+    (data.date ? data.date.split("-").reverse().join("/") : "Sin fecha"));
+   make("p",head,"","Ejecutivo: "+data.executive+" · Actual: "+data.bank);
+   make("p",printArea,"","COP · Sin impuestos ni retenciones");
+   make("p",printArea,"","Ventas: "+money(data.declared)+" · Ticket: "+
+    money(data.ticket)+" · Pagos estimados: "+df.format(r.payments));
+   const grid=make("div",printArea,"print-grid");
+   const costBox=make("div",grid,"print-box");
+   make("h2",costBox,"","Costo mensual del ecosistema");
+   make("p",costBox,"","Actual: "+money(r.totalA));
+   make("p",costBox,"","Bold: "+money(r.totalB));
+   make("h2",costBox,"","Ahorro neto mensual");
+   make("div",costBox,"print-value",money(r.saving));
+   make("p",costBox,"",r.percent===null ? "Porcentaje no calculable" :
+    pct(r.percent)+" frente al costo actual");
+   const projection=make("div",grid,"print-box");
+   make("h2",projection,"","Proyección");
+   make("p",projection,"","Primeros 12 meses: "+money(r.annual));
+   make("p",projection,"",data.horizon+" meses: "+money(r.accumulated));
+   make("p",projection,"","Crecimiento mensual: "+pct(data.growth*100));
+   make("h2",projection,"","Punto de equilibrio");
+   make("p",projection,"",equilibrium(r));
+
+   make("h2",printArea,"","Costo mensual por componente");
+   printTable(printArea,["Componente","Actual","Bold"],[
+    ["Comisiones de pagos",money(r.commissionA),money(r.commissionB)],
+    ["Costos asociados",money(r.serviceA),money(r.serviceB)],
+    ["Software POS",money(r.posA),money(r.posB)],
+    ["Total ecosistema",money(r.totalA),money(r.totalB)]
+   ]);
+   make("h2",printArea,"","Tarifas: porcentaje + cargo fijo por pago");
+   printTable(printArea,["Franquicia","Ventas","Actual","Bold"],r.brands.map(b=>[
+    b.name,money(b.volume),pct(b.rateA*100)+" + "+money(b.fixedA),
+    pct(b.rateB*100)+" + "+money(b.fixedB)
+   ]));
+   make("h2",printArea,"","Costos asociados mensuales");
+   printTable(printArea,["Concepto","Actual","Bold"],
+    r.costs.map(c=>[c.name,money(c.costA),money(c.costB)]));
+   make("h2",printArea,"","Software POS mensual");
+   printTable(printArea,["Concepto","Actual","Bold"],
+    r.pos.map(p=>[p.name,money(p.costA),money(p.costB)]));
+   make("p",printArea,"","Ahorro POS: "+money(r.posSaving)+
+    " mensuales, ya incluido en el ahorro total.");
+   make("p",printArea,"","Conclusión: "+commercialMessage(r));
+   make("p",printArea,"",warning);
+   const legal=make("div",printArea,"legal");
+   make("p",legal,"",
+    "Ticket común por franquicia. Pagos estimados, no conteo real. "+
+    "Mezcla y tarifas constantes. Ventas y pagos crecen; servicios y POS constantes. "+
+    "POS solo recurrente mensual; no incluye equipos ni implementación. "+
+    "Cálculo sin redondeos intermedios, presentación redondeada a pesos.");
+   make("strong",legal,"",LEGAL);
+  }
+
+  function update(){
+   try{
+    const errors=validate(false);
+    if(errors.length){
+     errorBox.hidden=false;errorBox.textContent=errors.join(" ");
+     estimate.textContent="—";allocation.textContent="Corrige los campos marcados.";
+     invalidate("Corrige los campos rojos para continuar.");return;
+    }
+    errorBox.hidden=true;errorBox.textContent="";
+    const data=read(),r=calculate(data),difference=data.declared-r.volume;
+    estimate.textContent=data.ticket>0 ? "≈ "+df.format(data.declared/data.ticket) :
+     data.declared>0 ? "Ingresa ticket promedio" : "0";
+    allocation.textContent="Distribuido: "+money(r.volume)+
+     " · Diferencia frente al total declarado: "+money(difference);
+    allocation.className="help "+(Math.abs(difference)>0.01 ? "neg" : "pos");
+    if(![r.totalA,r.totalB,r.payments,r.annual,r.accumulated].every(Number.isFinite)){
+     invalidate("Valores fuera de capacidad de cálculo. Revisa ticket e importes.");return;
+    }
+    current={data,result:r};render(data,r,warnings(data,r));
+   }catch(error){invalidate("Ocurrió un error de ejecución.");report(error);}
+  }
+
+  function sample(){
+   const volumes=[30000000,20000000,5000000,0,15000000,0];
+   const ratesA=[1.8,1.9,2.6,0,1.4,0],ratesB=[2.2,2.3,3,0,1.8,0];
+   const frequencies=[1,1,40,20,20,2,1,1,1,0];
+   const units=[80000,20000,6000,5000,5000,80000,40000,30000,30000,0];
+   const qa=[2,1,1],ua=[120000,50000,30000],qb=[2,1,1],ub=[70000,0,0];
+   return {
+    declared:70000000,ticket:100000,growth:0,horizon:12,
+    brands:BRANDS.map((name,i)=>({
+     name,volume:volumes[i],rateA:ratesA[i]/100,rateB:ratesB[i]/100,
+     fixedA:0,fixedB:i<2 ? 200 : 0
+    })),
+    costs:CONCEPTS.map((name,i)=>({
+     name,frequency:frequencies[i],unitA:units[i],unitB:0
+    })),
+    pos:POS_CONCEPTS.map((name,i)=>({
+     name,quantityA:qa[i],unitA:ua[i],quantityB:qb[i],unitB:ub[i]
+    }))
+   };
+  }
+  function loadExample(){
+   const data=sample();
+   merchant.value="Comercio de ejemplo";executive.value="Asesor de ejemplo";
+   bank.value="Banco de ejemplo";declared.value=data.declared;ticket.value=data.ticket;
+   growth.value="0";horizon.value="12";
+   data.brands.forEach((b,i)=>{
+    const row=brandUI[i];
+    row.volume.value=b.volume;row.rateA.value=Number((b.rateA*100).toFixed(8));
+    row.rateB.value=Number((b.rateB*100).toFixed(8));
+    row.fixedA.value=b.fixedA;row.fixedB.value=b.fixedB;
+   });
+   data.costs.forEach((c,i)=>{
+    const row=costUI[i];row.concept.value=c.name;row.frequency.value=c.frequency;
+    row.unitA.value=c.unitA;row.unitB.value=c.unitB;
+   });
+   data.pos.forEach((p,i)=>{
+    const row=posUI[i];row.concept.value=p.name;
+    row.quantityA.value=p.quantityA;row.unitA.value=p.unitA;
+    row.quantityB.value=p.quantityB;row.unitB.value=p.unitB;
+   });
+   exampleMode=true;update();
+  }
+  function clearData(){
+   [merchant,executive,bank,declared,ticket].forEach(input=>input.value="");
+   growth.value="0";horizon.value="12";
+   brandUI.forEach(row=>[row.volume,row.rateA,row.rateB,row.fixedA,row.fixedB]
+    .forEach(input=>input.value=""));
+   costUI.forEach((row,i)=>{
+    row.concept.value=CONCEPTS[i];row.frequency.value="";row.unitA.value="";row.unitB.value="0";
+   });
+   posUI.forEach((row,i)=>{
+    row.concept.value=POS_CONCEPTS[i];
+    [row.quantityA,row.unitA,row.quantityB,row.unitB].forEach(input=>input.value="0");
+   });
+   exampleMode=false;update();
+  }
+  function applyConfig(){
+   if(configFields.disabled) return;
+   const errors=validate(true);
+   if(errors.length){configStatus.textContent=errors.join(" ");return;}
+   configBrandUI.forEach((cfg,i)=>{
+    brandUI[i].rateB.value=num(cfg.rate);brandUI[i].fixedB.value=num(cfg.fixed);
+   });
+   configCostUI.forEach((input,i)=>costUI[i].unitB.value=num(input));
+   configPosUI.forEach((input,i)=>posUI[i].unitB.value=num(input));
+   configStatus.textContent="Predeterminados aplicados.";update();
+  }
+
+  function runTests(){
+   const tests=[],near=(a,b)=>Math.abs(a-b)<0.01;
+   const check=(name,ok)=>tests.push({prueba:name,resultado:ok ? "OK" : "ERROR"});
+   const r=calculate(sample());
+   check("Pagos estimados",near(r.payments,700));
+   check("Comisión actual",near(r.commissionA,1260000));
+   check("Comisión Bold",near(r.commissionB,1640000));
+   check("POS actual",near(r.posA,320000));
+   check("POS Bold",near(r.posB,140000));
+   check("Ahorro POS",near(r.posSaving,180000));
+   check("Ecosistema actual",near(r.totalA,2380000));
+   check("Ecosistema Bold",near(r.totalB,1780000));
+   check("Ahorro mensual",near(r.saving,600000));
+   check("Ahorro anual",near(r.annual,7200000));
+   check("Desglose sin duplicación",
+    near(r.serviceSaving+r.posSaving+r.commissionA-r.commissionB,r.saving));
+
+   const lower=sample();lower.ticket=50000;
+   check("Ticket menor",near(calculate(lower).saving,500000));
+   const one={
+    ticket:100000,growth:0,horizon:12,
+    brands:[{name:"Visa",volume:10000000,rateA:0.018,rateB:0.0229,fixedA:0,fixedB:200}],
+    costs:[],pos:[]
+   };
+   check("2,29% + $200",near(calculate(one).commissionB,249000));
+   const grown=sample();grown.growth=0.01;grown.horizon=24;
+   let manual=0;
+   for(let i=0;i<24;i++) manual+=980000-380000*Math.pow(1.01,i);
+   check("Proyección integral",near(calculate(grown).accumulated,manual));
+
+   CONCEPTS.forEach((_,i)=>{
+    const d=sample();
+    d.costs=d.costs.map((c,j)=>({
+     name:c.name,frequency:i===j ? 3 : 0,unitA:100,unitB:20
+    }));
+    check("Servicio independiente "+(i+1),near(calculate(d).serviceSaving,240));
+   });
+   POS_CONCEPTS.forEach((_,i)=>{
+    const d=sample();
+    d.pos=d.pos.map((p,j)=>({
+     name:p.name,quantityA:i===j ? 2 : 0,unitA:100,
+     quantityB:i===j ? 1 : 0,unitB:30
+    }));
+    check("POS independiente "+(i+1),near(calculate(d).posSaving,170));
+   });
+   const missing=sample();missing.ticket=0;
+   check("Detecta ticket faltante",calculate(missing).missingTicket);
+   const zero={ticket:0,growth:0,horizon:12,brands:[],costs:[],pos:[]};
+   check("Ceros seguros",calculate(zero).saving===0 && calculate(zero).percent===null);
+   const failures=tests.filter(t=>t.resultado==="ERROR");
+   testStatus.textContent=failures.length
+    ? failures.length+" prueba(s) con error. Revisa la consola."
+    : tests.length+" pruebas del motor correctas.";
+   testStatus.className="help "+(failures.length ? "neg" : "pos");
+   console.table(tests);return failures.length===0;
+  }
+
+  exampleButton.addEventListener("click",guarded(loadExample));
+  clearButton.addEventListener("click",guarded(clearData));
+  testButton.addEventListener("click",guarded(runTests));
+  applyButton.addEventListener("click",guarded(applyConfig));
+  unlock.addEventListener("change",()=>configFields.disabled=!unlock.checked);
+
+  root.addEventListener("input",event=>{
+   if(!event.target.matches("input,select")) return;
+   if(configFields.contains(event.target)){
+    configStatus.textContent="Cambios pendientes de aplicar.";return;
+   }
+   update();
+  });
+  root.addEventListener("change",event=>{
+   if(event.target===unlock || configFields.contains(event.target)) return;
+   if(event.target.matches("input,select")) update();
+  });
+
+  function restoreTitle(){
+   if(previousTitle!==null){document.title=previousTitle;previousTitle=null;}
+  }
+  pdfButton.addEventListener("click",guarded(()=>{
+   update();
+   if(!current || pdfButton.disabled) return;
+   restoreTitle();
+   previousTitle=document.title;
+   const name=current.data.merchant.replace(/[\\/:*?"<>|]/g,"")
+    .replace(/\s+/g,"_").slice(0,70) || "Comercio";
+   document.title="Simulacion_Bold_"+name+"_"+(current.data.date || "sin_fecha");
+   exportHelp.textContent="En la ventana del navegador: Guardar como PDF, papel A4, "+
+    "sin encabezados ni pies. Revisa la vista previa antes de guardar.";
+   try{window.print();}catch(error){restoreTitle();throw error;}
+  }));
+  window.addEventListener("beforeprint",update);
+  window.addEventListener("afterprint",restoreTitle);
+
+  const today=new Date();
+  date.value=today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0")+
+   "-"+String(today.getDate()).padStart(2,"0");
+
+  update();
+  if(!runTests()) throw new Error("Fallaron las pruebas internas del motor.");
+  status.textContent="Calculadora activa · V5";
+  status.className="status ok";
+ }
+})();
+</script>
+</body>
+</html>
+
+							<script>
+                            	
+							</script>
+                        </body>
+                        </html>
+                    
